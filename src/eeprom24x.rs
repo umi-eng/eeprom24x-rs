@@ -1,4 +1,5 @@
 use crate::{addr_size, page_size, private, unique_serial, Eeprom24x, Error, SlaveAddr};
+use core::fmt::Debug;
 use core::marker::PhantomData;
 use embedded_hal::blocking::i2c::{Write, WriteRead};
 pub trait MultiSizeAddr: private::Sealed {
@@ -252,7 +253,8 @@ macro_rules! impl_for_page_size {
         impl<I2C, E, AS, SN> crate::Eeprom24xTrait for Eeprom24x<I2C, page_size::$PS, AS, SN>
         where
             I2C: Write<Error = E> + WriteRead<Error=E> + embedded_hal::blocking::i2c::Read<Error = E>,
-            AS: MultiSizeAddr
+            AS: MultiSizeAddr,
+            E: Debug
             {
                 type Error = E;
 

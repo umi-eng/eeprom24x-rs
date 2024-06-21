@@ -161,7 +161,7 @@
 #![deny(missing_docs, unsafe_code)]
 #![no_std]
 
-use core::marker::PhantomData;
+use core::{fmt::Debug, marker::PhantomData};
 
 /// All possible errors in this crate
 #[derive(Debug)]
@@ -249,7 +249,7 @@ pub struct Eeprom24x<I2C, PS, AS, SN> {
 /// `Eeprom24x` type trait for use in generic code
 pub trait Eeprom24xTrait: private::Sealed {
     /// Inner implementation error.
-    type Error;
+    type Error: Debug;
 
     /// Write a single byte in an address.
     ///
